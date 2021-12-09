@@ -1,9 +1,9 @@
 import cv2
 import numpy as np
-from threading import Thread
+from multiprocessing import Process, Queue
 
 class Rtsp(object):
-    def __init__(self, src = None, camId = None, shouldLoop = False, sampleRate = 5 ):
+    def __init__(self, src = None, camId = None, shouldLoop = False, sampleRate = 5):
         self.src = src
         self.camId = camId
         self.shouldLoop = shouldLoop
@@ -11,7 +11,7 @@ class Rtsp(object):
         self.endStream = False
 
     def start(self):
-        Thread(target=self.streamRtsp).start()
+        Process(target=self.streamRtsp).start()
 
     def stop(self):
         self.endStream = True
@@ -22,7 +22,7 @@ class Rtsp(object):
                 for _ in range(self.sampleRate):
                     ret, frame = cap.read()
                 if ret:
-                    print("Da da da...")
+                    
     
 
 
